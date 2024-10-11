@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login page</title>
-</head>
-<body>
-    <h1>Connexion</h1>
-    <form action="/login" method="post">
-        <label for="username">Identifiant</label>
-        <input type="text" id="identifiant" name="identifiant" required><br>
-        <label for="username">Mot de passe</label>
-        <input type="password" id="mdp" name="mdp" required><br>
-        <input type="submit" value="Connexion">
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+        <title>login page</title>
+    </head>
+    <body>
+        <h1>Connexion</h1>
+        <form action="/login" method="post">
+            <label for="username">Identifiant</label>
+            <input type="text" id="identifiant" name="identifiant" required><br>
+            <label for="username">Mot de passe</label>
+            <input type="password" id="mdp" name="mdp" required><br>
+            <input type="submit" value="Connexion">
+        </form>
+    </body>
 </html>
