@@ -1,5 +1,7 @@
 import json
 import re
+import os
+import shutil
 
 def load_json_data(path_file):
     with open(path_file, 'r') as file:
@@ -29,3 +31,15 @@ def check_password_policy(password):
     if len(password) < 12 or not re.search(r'\d', password) or not re.search(r'\W', password):
         return False
     return True
+
+
+def duplicate_folder(src, dest):
+
+    if not os.path.exists(src):
+        return 1
+    
+    if os.path.exists(dest):
+        return 2
+    
+    shutil.copytree(src, dest)
+    
