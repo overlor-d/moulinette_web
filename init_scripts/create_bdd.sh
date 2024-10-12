@@ -2,4 +2,5 @@
 
 cd data
 mkdir users exercices groupes
-touch users.json
+touch index.json
+echo "{}" > index.json

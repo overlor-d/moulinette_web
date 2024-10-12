@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>register</title>
+</head>
+<body>
+    <h1>Register</h1>
+
+    <form action="/register" method="post">
+        
+        {% if error_email %}
+            <p class="error">{{ error_email }}</p>
+        {% endif %}
+
+        <label for="email">Mail</label>
+        <input type="email" id="email" name="email" value="{{ request.form.email or '' }}" required><br>
+
+        {% if error_username %}
+            <p class="error">{{ error_username }}</p>
+        {% endif %}
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="{{ request.form.username or '' }}" required><br>
+
+        <label for="mdp">mdp</label>
+        <input type="password" id="mdp" name="mdp" required><br>
+
+        {% if error_mdp %}
+            <p class="error">{{ error_mdp }}</p>
+        {% endif %}
+
+        <label for="cofirm_mdp">Confirmer le mot de passe</label>
+        <input type="password" id="confirm_mdp" name="confirm_mdp" required><br>
+
+
+        <input type="submit" value="S'enregistrer"><br>
+
+        <a href="{{ url_for('login') }}">Se connecter</a>
+
+    </form>
+</body>
+</html>

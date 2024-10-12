@@ -3,17 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
         <title>login page</title>
     </head>
     <body>
         <h1>Connexion</h1>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
         <form action="/login" method="post">
-            <label for="username">Identifiant</label>
-            <input type="text" id="identifiant" name="identifiant" required><br>
-            <label for="username">Mot de passe</label>
+            <label for="username_mail">Username ou mail</label>
+            <input type="text" id="username_mail" name="username_mail" required><br>
+
+            <label for="password">Mot de passe</label>
             <input type="password" id="mdp" name="mdp" required><br>
-            <input type="submit" value="Connexion">
+
+            <a href="{{ url_for('recovery') }}">Mot de passe oublié</a><br>
+
+            <input type="submit" value="Connexion"><br>
+    
+            <a href="{{ url_for('register') }}">S'enregistrer</a>
+
         </form>
     </body>
 </html>

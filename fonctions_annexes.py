@@ -1,4 +1,5 @@
 import json
+import re
 
 def load_json_data(path_file):
     with open(path_file, 'r') as file:
@@ -13,3 +14,18 @@ def dump_json_data(path_file, data):
         return 
     except:
         return 1
+    
+
+def conform_mail(mail):
+    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    
+    if re.match(email_regex, mail):
+        return True
+    else:
+        return False
+
+
+def check_password_policy(password):
+    if len(password) < 12 or not re.search(r'\d', password) or not re.search(r'\W', password):
+        return False
+    return True
