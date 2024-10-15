@@ -17,5 +17,3 @@ def check_password_policy(password):
     if len(password) < 12 or not re.search(r'\d', password) or not re.search(r'\W', password):
         return False
     return True
-
-
