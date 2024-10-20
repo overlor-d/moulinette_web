@@ -1,23 +1,9 @@
-from flask import Flask, render_template, request, session, redirect, url_for
-from data_module import Data
-from datetime import timedelta
+from flask import render_template, request, session, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+
 from fonctions_annexes import *
-from models import *
-
-
-app = Flask(__name__)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite://data.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-bdd = SQLAlchemy(app)
-migrate = Migrate(app, bdd)
-
-app.permanent_session_lifetime = timedelta(minutes=30)
-app.secret_key = b'C8mH=A6L;84grws/?6F!'
+from config import app, bdd
+from models import User
 
 
 @app.route('/home')
