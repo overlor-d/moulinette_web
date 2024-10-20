@@ -6,15 +6,13 @@ import os
 
 app = Flask(__name__)
 
-db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'data', 'app.db')
-
+db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'data', 'app.db')
 app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SECRET_KEY'] = b'C8mH=A6L;84grws/?6F!'
+app.permanent_session_lifetime = timedelta(minutes=30)
 
 bdd = SQLAlchemy(app)
 migrate = Migrate(app, bdd)
 
-
-app.permanent_session_lifetime = timedelta(minutes=30)
-app.secret_key = b'C8mH=A6L;84grws/?6F!'
+from app import routes

@@ -1,8 +1,7 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-
-from fonctions_annexes import *
-from config import app, bdd
+from app import app, bdd
+from app.fonctions_annexes import *
 from models import User
 
 
@@ -26,16 +25,17 @@ def login():
         username_mail = request.form['username_mail']
         mdp = request.form['mdp']
 
-        user = bdd.load_user(username_mail)
-        if user and check_password_hash(user['password'], mdp):
-            session['username'] = user['username']
+        user = User.query.filter((User.username == username_mail) | (User.email == username_mail)).first()
+        if user and check_password_hash(user.password, mdp):
+            session['username'] = user.username
             return redirect(url_for('home'))
         else:
             error = "Email ou mot de passe incorrect"
             return render_template('login.html', error=error)
-        
+
     if 'username' in session:
         return redirect(url_for('home'))
+    
     return render_template("login.html")
 
 
@@ -59,15 +59,25 @@ def register():
         if not conform_mail(email):
             return render_template("register.html", error_email="Le mail n'est pas conforme")
 
-        if bdd.search_username_by_mail(email):
+        
+        if User.query.filter_by(email=email).first():
             return render_template("register.html", error_email="Le mail est déjà utilisé")
 
-        if bdd.user_exist(username):
+        if User.query.filter_by(username=username).first():
             return render_template("register.html", error_username="Le nom d'utilisateur est déjà utilisé")
 
         hashed_password = generate_password_hash(password)
 
-        bdd.create_user(username, hashed_password, email)
+        new_user = User(username=username, email=email, password=hashed_password, permission="user")
+
+        bdd.session.add(new_user)
+        try:
+            bdd.session.commit()
+        except Exception as e:
+            bdd.session.rollback()
+            flash("Une erreur est survenue lors de l'inscription, veuillez réessayer ou contacter le support.")
+            return render_template("register.html")
+
         return redirect(url_for('login'))
 
     return render_template("register.html")
