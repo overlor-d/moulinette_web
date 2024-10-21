@@ -2,7 +2,7 @@ from flask import render_template, request, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import app, bdd
 from app.fonctions_annexes import *
-from models import User
+from app.models import User
 
 
 @app.route('/home')
@@ -59,12 +59,11 @@ def register():
         if not conform_mail(email):
             return render_template("register.html", error_email="Le mail n'est pas conforme")
 
-        
         if User.query.filter_by(email=email).first():
-            return render_template("register.html", error_email="Le mail est déjà utilisé")
+            return render_template("register.html", error_email="Le mail ou le nom d'utilisateur est déjà pris.")
 
         if User.query.filter_by(username=username).first():
-            return render_template("register.html", error_username="Le nom d'utilisateur est déjà utilisé")
+            return render_template("register.html", error_email="Le mail ou le nom d'utilisateur est déjà pris.")
 
         hashed_password = generate_password_hash(password)
 
@@ -80,11 +79,15 @@ def register():
 
         return redirect(url_for('login'))
 
+    if 'username' in session:
+        return redirect(url_for('home'))
+
     return render_template("register.html")
 
 
 @app.route('/recovery', methods=['GET', 'POST'])
 def recovery():
+
     return render_template("recovery.html")
 
 
