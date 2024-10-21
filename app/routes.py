@@ -87,9 +87,18 @@ def register():
 
 @app.route('/recovery', methods=['GET', 'POST'])
 def recovery():
+    if request.method == "POST":
+        email = request.form["email"]
+
+        if User.query.filter_by(email=email).first():
+            pass
 
     return render_template("recovery.html")
 
+
+@app.route('/recovery/submit')
+def succes_submit():
+    return render_template("recovery/succes.html")
 
 @app.route('/logout')
 def logout():
