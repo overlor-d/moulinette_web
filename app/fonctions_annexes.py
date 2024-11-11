@@ -25,16 +25,16 @@ def check_password_policy(password):
     return True
 
 
-def envoyer_email(adresse_expediteur, mot_de_passe, adresse_destinataire, sujet, corps):
+def send_email(adresse_destinataire, sujet, corps):
     email = MIMEMultipart()
-    email['From'] = adresse_expediteur
+    email['From'] = MAIL_BOT
     email['To'] = adresse_destinataire
     email['Subject'] = sujet
     email.attach(MIMEText(corps, 'plain'))
 
     serveur = smtplib.SMTP('smtp.gmail.com', 587)
     serveur.starttls()
-    serveur.login(adresse_expediteur, mot_de_passe)
+    serveur.login(MAIL_BOT, MDP_APP_BOT)
     
     serveur.send_message(email)
     serveur.quit()

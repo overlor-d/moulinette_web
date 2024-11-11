@@ -16,7 +16,7 @@
 
         <form action="/login" method="post">
             <label for="username_mail">Username ou mail</label>
-            <input type="text" id="username_mail" name="username_mail" required><br>
+            <input type="text" id="username_mail" name="username_mail" value="{{ request.form.username_mail}}" required><br>
 
             <label for="password">Mot de passe</label>
             <input type="password" id="mdp" name="mdp" required><br>

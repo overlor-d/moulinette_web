@@ -25,14 +25,18 @@
         <label for="username">Username</label>
         <input type="text" id="username" name="username" value="{{ request.form.username or '' }}" required><br>
 
-        <label for="mdp">mdp</label>
-        <input type="password" id="mdp" name="mdp" required><br>
-
         {% if error_mdp %}
             <p class="error">{{ error_mdp }}</p>
         {% endif %}
 
-        <label for="cofirm_mdp">Confirmer le mot de passe</label>
+        <label for="mdp">mdp</label>
+        <input type="password" id="mdp" name="mdp" required><br>
+
+        {% if error_confirm_mdp %}
+            <p class="error">{{ error_confirm_mdp }}</p>
+        {% endif %}
+
+        <label for="confirm_mdp">Confirmer le mot de passe</label>
         <input type="password" id="confirm_mdp" name="confirm_mdp" required><br>
 
 

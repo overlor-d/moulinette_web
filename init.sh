@@ -8,10 +8,10 @@ then
 else
     echo "Le dossier n'existe pas il va être crée"
     python3 -m venv ./venv
+    source ./venv/bin/activate
     pip install -r requirements.txt
 fi
 
-source ./venv/bin/activate
 
 if [ -e ./data ]
 then

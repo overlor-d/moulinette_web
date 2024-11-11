@@ -1,0 +1,1 @@
+faire des style css en fonction des types de input que l'on a

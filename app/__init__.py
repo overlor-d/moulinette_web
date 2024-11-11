@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import timedelta
+from itsdangerous import URLSafeTimedSerializer
 import os
 
 app = Flask(__name__)
@@ -14,5 +15,7 @@ app.permanent_session_lifetime = timedelta(minutes=30)
 
 bdd = SQLAlchemy(app)
 migrate = Migrate(app, bdd)
+
+s_token = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 from app import routes
